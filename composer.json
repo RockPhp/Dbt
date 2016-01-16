@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.1.6",
-        "rock/dbal": "1.0.0"
+        "rock/dbal": "dev-master"
     },
     "autoload": {
         "psr-0": {
