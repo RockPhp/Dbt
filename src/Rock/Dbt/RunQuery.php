@@ -32,7 +32,14 @@ abstract class Rock_Dbt_RunQuery
         try {
             $stmt = $this->conn->runQuery($this->query, $this->arrayBind, $start, $limit);
         } catch (Exception $e) {
-            throw new Exception('Erro na query [' . $this->query . ']' . ' [' . $this->conn->getErrorMsg() . '] [' . $this->conn->getErrorCode() . ']');
+            $arrayBindStr = implode(",", $this->arrayBind);
+            $exceptionMsg = 'Erro na query [' . $this->query . "]\n";
+            $exceptionMsg .= 'arrayBind: [' . $arrayBindStr . "]\n";
+            $exceptionMsg .= 'errorCode: [' . $this->conn->getErrorCode() . "]\n";
+            $exceptionMsg .= 'errorMsg: [' . $this->conn->getErrorMsg() . "]\n";
+            $exceptionMsg .= 'exceptionCode: [' . $e->getCode() . "]\n";
+            $exceptionMsg .= 'exceptionMsg: [' . $e->getMessage() . ']';
+            throw new Exception($exceptionMsg);
         }
         return $stmt;
     }
