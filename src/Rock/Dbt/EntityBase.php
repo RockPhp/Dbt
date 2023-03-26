@@ -126,23 +126,6 @@ abstract class Rock_Dbt_EntityBase
      */
     public function __call($method, $args)
     {
-        $arrayPerm = array(
-            DIRECTORY_SEPARATOR . 'Dbt' . DIRECTORY_SEPARATOR . 'EntityGet.php',
-            DIRECTORY_SEPARATOR . 'Dbt' . DIRECTORY_SEPARATOR . 'EntitySet.php'
-        );
-        $callerFile = debug_backtrace();
-        $callerFile = $callerFile[1]['file'];
-        $permOk = false;
-        foreach ($arrayPerm as $v) {
-            if (substr_count($callerFile, $v) == 1) {
-                $permOk = true;
-            }
-        }
-        if (! $permOk) {
-            $exceptMsg = 'Acesso ao metodo ' . $method;
-            $exceptMsg .= ' somente via Rock_Dbt_EntityGet ou Rock_Dbt_EntitySet.';
-            throw new Exception($exceptMsg);
-        }
         $args = empty($args[0]) ? null : $args[0];
         if (substr_count($method, '__') > 0) {
             $method = str_replace('__', '_', $method);
